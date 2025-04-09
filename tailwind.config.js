@@ -11,6 +11,7 @@ export default {
         textWhite: "#82A3A1",
         bgCustom: "#0d1821",
         lightGreen: "#2CD196",
+        lightBg: "#233849",
       },
       fontSize: {
         sizeText: "18px",

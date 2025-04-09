@@ -4,6 +4,7 @@ import { Titre } from "./components/ui/titre";
 import { Text } from "./components/ui/text";
 import { ImageProfil } from "./components/ui/imageProfil";
 import { DownloadButton } from "./components/ui/downloadButton";
+import { SliderPicto } from "./components/slider/sliderPicto";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <Header />
       <section
         key="hero"
-        className="container mx-auto lg:grid lg:grid-cols-2 pb-[100px]"
+        className="container mx-auto lg:grid lg:grid-cols-2 pb-[100px] px-4"
       >
         <div className="max-lg:text-center max-sm:px-4 flex flex-col max-lg:items-center gap-2 justify-between">
           <div>
@@ -27,9 +28,10 @@ function App() {
           <DownloadButton text="Télecharger mon CV"></DownloadButton>
         </div>
         <div className="max-lg:hidden flex justify-center">
-          <ImageProfil></ImageProfil>
+          <ImageProfil />
         </div>
       </section>
+      <SliderPicto />
     </BrowserRouter>
   );
 }
