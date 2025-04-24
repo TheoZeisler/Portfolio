@@ -22,12 +22,27 @@ export const icons = [
   { icon: <FaGitAlt />, name: "Git" },
 ];
 
-export function Cards({ icon, name }) {
-  return (
-    <div>
-      <div className="p-4 bg-lightBg rounded-xl text-textWhite text-5xl">
-        {icon}
+export function Cards(props) {
+  if (props.name) {
+    return (
+      <div className="group h-32 max-md:h-24 max-lg:h-28">
+        <div className="relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+          <div
+            className={`absolute w-full h-full ${props.className} items-center [backface-visibility:hidden]`}
+          >
+            {props.icon}
+          </div>
+          <div className="absolute w-full h-full backface-hidden flex items-center justify-center [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-lg border border-lightGreen text-lightGreen">
+            {props.name}
+          </div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div>
+        <div className={props.className}>{props.icon}</div>
+      </div>
+    );
+  }
 }

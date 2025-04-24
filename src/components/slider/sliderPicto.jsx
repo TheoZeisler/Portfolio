@@ -32,7 +32,10 @@ export function SliderPicto() {
       >
         {icons.map((item, index) => (
           <SwiperSlide key={index} className="flex justify-center">
-            <Cards icon={item.icon}></Cards>
+            <Cards
+              icon={item.icon}
+              className="p-4 bg-lightBg rounded-xl text-textWhite text-6xl"
+            ></Cards>
           </SwiperSlide>
         ))}
       </Swiper>

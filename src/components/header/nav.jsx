@@ -16,7 +16,7 @@ export default function Slider() {
       <div className="flex overflow-x-auto scroll-smooth w-full p-4 sm:justify-center">
         {["Profil", "Compétences", "Projets", "Contact"].map((label, index) => (
           <button
-            className="font-RobotoMono text-textWhite text-2xl p-4"
+            className="text-textWhite text-2xl p-4"
             key={index}
             onClick={() => scrollToSection(index)}
           >
