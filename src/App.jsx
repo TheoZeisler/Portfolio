@@ -7,11 +7,14 @@ import { DownloadButton } from "./components/ui/downloadButton";
 import { SliderPicto } from "./components/slider/sliderPicto";
 import React, { useState } from "react";
 import { Cards, icons } from "./components/card/cards";
+import ContactForm from "./components/form/contactForm";
+import { useRef } from "react";
 
 const tabs = [
-  { id: "formations", label: "Formations" },
   { id: "experiences", label: "Experiences" },
   { id: "competences", label: "Compétences" },
+  { id: "formations", label: "Formations" },
+
   { id: "apropos", label: "A propos" },
 ];
 
@@ -143,18 +146,20 @@ const content = {
 };
 
 function App() {
+  const sectionsRef = useRef({});
   return (
     <BrowserRouter>
-      <Header />
+      <Header sectionsRef={sectionsRef} />
       <section
         key="hero"
-        className="container mx-auto lg:grid lg:grid-cols-2 pb-[100px] px-4"
+        ref={(el) => (sectionsRef.current["profil"] = el)}
+        className="container mx-auto lg:grid lg:grid-cols-2 lg:pb-32 px-4 pt-32 lg:pt-52 pb-16"
       >
         <div className="max-lg:text-center max-sm:px-4 flex flex-col max-lg:items-center gap-2 justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-wider lg:text-5xl text-textWhite uppercase relative inline-block mb-10">
+            <h1 className="text-3xl font-bold tracking-wider lg:text-5xl text-white uppercase relative inline-block mb-10">
               Théo Zeisler
-              <span className="absolute left-0 bottom-0 w-full h-[2px] bg-textWhite"></span>
+              <span className="absolute left-0 bottom-0 w-full h-[2px] bg-white"></span>
             </h1>
             <Text
               text="Développeur fullstack passionné par les nouvelles technologies. Curieux de nature, j’aime apprendre en continu et relever de nouveaux défis techniques.
@@ -169,9 +174,30 @@ En dehors du code, je suis un joueur de poker passionné, amateur d’échecs et
         </div>
       </section>
       <SliderPicto />
-      <section key="competences" className="container mx-auto px-4 py-[100px]">
+      <section
+        key="competences"
+        ref={(el) => (sectionsRef.current["competences"] = el)}
+        className="container mx-auto px-4 pt-28 max-lg:pt-16"
+      >
         <Titre titre="Mon parcours" />
         <ProfilePage />
+      </section>
+      <section
+        key="contact"
+        ref={(el) => (sectionsRef.current["contact"] = el)}
+        className="container mx-auto px-4 pt-16 pb-12 md:pb-56 md:pt-28 flex flex-col md:flex-row items-start justify-center gap-12 max-w-5xl"
+      >
+        <div className="md:w-1/2 text-textWhite space-y-4">
+          <h3 className="text-3xl font-bold text-white">
+            Envie de collaborer ?
+          </h3>
+          <p className="text-lg">
+            Que ce soit pour un projet web, une mission freelance ou juste
+            discuter tech, n’hésite pas à me laisser un message ! 👋
+          </p>
+          <p className="text-sm italic">Je réponds généralement sous 24h.</p>
+        </div>
+        <ContactForm />
       </section>
     </BrowserRouter>
   );

@@ -1,9 +1,11 @@
 import Nav from "./nav";
+import { useRef } from "react";
 
-export function Header() {
+export function Header({ sectionsRef }) {
+  const headerRef = useRef(null);
   return (
-    <header className="pb-12">
-      <Nav />
+    <header ref={headerRef} className="fixed top-0 w-full z-50 bg-bgCustom">
+      <Nav sectionsRef={sectionsRef} headerRef={headerRef} />
     </header>
   );
 }
