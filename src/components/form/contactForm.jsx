@@ -29,35 +29,35 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-lg mx-auto p-8 bg-[#1e1e2f] rounded-2xl shadow-2xl space-y-6 text-gray-200"
+      className="max-w-lg mx-auto p-8 bg-lightBg rounded-2xl shadow-2xl space-y-6 text-gray-200"
     >
-      <h2 className="text-3xl font-bold text-center">Contacte-moi</h2>
+      <h2 className="text-3xl font-bold text-center">Contactez-moi</h2>
 
       <input
         type="text"
         name="name"
-        placeholder="Ton nom"
+        placeholder="Nom"
         required
-        className="w-full p-4 rounded-lg bg-[#2a2a3d] text-white placeholder-gray-400 border border-gray-600 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+        className="w-full p-4 rounded-lg bg-lightBg text-white placeholder-lightGreen border border-lightGreen focus:ring-2 focus:ring-emerald-500 focus:outline-none"
       />
       <input
         type="email"
         name="email"
-        placeholder="Ton email"
+        placeholder="E-mail"
         required
-        className="w-full p-4 rounded-lg bg-[#2a2a3d] text-white placeholder-gray-400 border border-gray-600 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+        className="w-full p-4 rounded-lg bg-lightBg text-white placeholder-lightGreen border border-lightGreen focus:ring-2 focus:ring-emerald-500 focus:outline-none"
       />
       <textarea
         name="message"
-        placeholder="Ton message"
+        placeholder="Votre message"
         required
-        className="w-full p-4 rounded-lg bg-[#2a2a3d] text-white placeholder-gray-400 border border-gray-600 focus:ring-2 focus:ring-emerald-500 focus:outline-none h-32"
+        className="w-full p-4 rounded-lg bg-lightBg text-white placeholder-lightGreen border border-lightGreen focus:ring-2 focus:ring-emerald-500 focus:outline-none h-32"
       />
 
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 rounded-lg transition disabled:opacity-50"
+        className="w-full bg-lightGreen hover:bg-emerald-600 text-white font-semibold py-3 rounded-lg transition disabled:opacity-50"
       >
         {status === "loading" ? "Envoi..." : "Envoyer"}
       </button>

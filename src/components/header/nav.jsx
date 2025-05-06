@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 
 export const nav = [
   { label: "Profil", name: "profil" },
-  { label: "Compétences", name: "competences" },
+  { label: "Parcours", name: "competences" },
   { label: "Contact", name: "contact" },
 ];
 

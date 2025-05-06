@@ -1,7 +1,6 @@
 import { BrowserRouter } from "react-router";
 import { Header } from "./components/header/header";
 import { Titre } from "./components/ui/titre";
-import { Text } from "./components/ui/text";
 import { ImageProfil } from "./components/ui/imageProfil";
 import { DownloadButton } from "./components/ui/downloadButton";
 import { SliderPicto } from "./components/slider/sliderPicto";
@@ -9,12 +8,14 @@ import React, { useState } from "react";
 import { Cards, icons } from "./components/card/cards";
 import ContactForm from "./components/form/contactForm";
 import { useRef } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { AnimatedText } from "./components/animations/animatedText";
+import { SplitText } from "./components/animations/splitText";
 
 const tabs = [
   { id: "experiences", label: "Experiences" },
   { id: "competences", label: "Compétences" },
   { id: "formations", label: "Formations" },
-
   { id: "apropos", label: "A propos" },
 ];
 
@@ -128,7 +129,7 @@ const content = {
         <p className="text-base md:text-lg leading-relaxed mb-4">
           En dehors du code, je suis un grand amateur de{" "}
           <span className="font-semibold text-white">poker</span>, joueur d’
-          <span className="font-semibold text-white">échecs</span>, et passionné
+          <span className="font-semibold text-white">échecs</span> et passionné
           de <span className="font-semibold text-white">jeux vidéo</span>. Le
           soir, je me détends volontiers devant une bonne série toujours à la
           recherche de nouveaux univers à explorer.
@@ -158,19 +159,32 @@ function App() {
         <div className="max-lg:text-center max-sm:px-4 flex flex-col max-lg:items-center gap-2 justify-between">
           <div>
             <h1 className="text-3xl font-bold tracking-wider lg:text-5xl text-white uppercase relative inline-block mb-10">
-              Théo Zeisler
+              <AnimatedText text="Théo Zeisler" />
               <span className="absolute left-0 bottom-0 w-full h-[2px] bg-white"></span>
             </h1>
-            <Text
+            <SplitText
+              className="text-lg text-textWhite text-justify"
               text="Développeur fullstack passionné par les nouvelles technologies. Curieux de nature, j’aime apprendre en continu et relever de nouveaux défis techniques.
 En dehors du code, je suis un joueur de poker passionné, amateur d’échecs et de jeux vidéo. J’aime aussi me détendre devant une bonne série. Ces activités m’aident à garder l’esprit affûté, stratégique et créatif, des qualités que j’applique aussi dans mon travail."
             />
           </div>
-          <ImageProfil className="lg:hidden"></ImageProfil>
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <ImageProfil className="lg:hidden" />
+          </motion.div>
           <DownloadButton text="Télecharger mon CV"></DownloadButton>
         </div>
         <div className="max-lg:hidden flex justify-center">
-          <ImageProfil />
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <ImageProfil />
+          </motion.div>
         </div>
       </section>
       <SliderPicto />
@@ -204,12 +218,12 @@ En dehors du code, je suis un joueur de poker passionné, amateur d’échecs et
 }
 
 function ProfilePage() {
-  const [activeTab, setActiveTab] = useState("formations");
+  const [activeTab, setActiveTab] = useState("experiences");
 
   return (
     <div className="mt-6">
       {/* Sidebar */}
-      <div className="flex flex-col space-y-4 md:flex-row md:space-x-10 md:space-y-0 md:h-[360px] overflow-hidden">
+      <div className="flex flex-col space-y-4 md:flex-row md:space-x-10 md:space-y-0 ">
         {/* Navigation */}
         <div className="md:flex md:flex-col gap-4 grid grid-cols-2">
           {tabs.map((tab) => (
@@ -228,9 +242,19 @@ function ProfilePage() {
           ))}
         </div>
 
-        {/* Content */}
-        <div className="flex-1 overflow-y-auto custom-scroll">
-          {content[activeTab]}
+        <div className="flex-1 overflow-hidden relative min-h-[300px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -100, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="w-full"
+            >
+              {content[activeTab]}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </div>
