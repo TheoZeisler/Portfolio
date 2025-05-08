@@ -154,7 +154,7 @@ function App() {
       <section
         key="hero"
         ref={(el) => (sectionsRef.current["profil"] = el)}
-        className="container mx-auto lg:grid lg:grid-cols-2 lg:pb-32 px-4 pt-32 lg:pt-52 pb-16"
+        className="container mx-auto lg:grid lg:grid-cols-2 lg:pb-32 px-4 pt-32 lg:pt-52 pb-16 gap-16"
       >
         <div className="max-lg:text-center max-sm:px-4 flex flex-col max-lg:items-center gap-2 justify-between">
           <div>
@@ -168,13 +168,20 @@ function App() {
 En dehors du code, je suis un joueur de poker passionné, amateur d’échecs et de jeux vidéo. J’aime aussi me détendre devant une bonne série. Ces activités m’aident à garder l’esprit affûté, stratégique et créatif, des qualités que j’applique aussi dans mon travail."
             />
           </div>
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <ImageProfil className="lg:hidden" />
-          </motion.div>
+          <div className="lg:hidden py-12">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className=" relative w-[170px] h-[190px] flex items-center justify-center">
+                <div className="absolute w-[225px] h-[225px] rounded-full spinning-border" />
+                <div className="absolute inset-0 bg-bgCustom/20 rounded-[38%] z-20 pointer-events-none" />
+                <ImageProfil className="rounded-[38%] w-full h-full object-cover z-10" />
+              </div>
+            </motion.div>
+          </div>
+
           <DownloadButton text="Télecharger mon CV"></DownloadButton>
         </div>
         <div className="max-lg:hidden flex justify-center">
@@ -183,7 +190,11 @@ En dehors du code, je suis un joueur de poker passionné, amateur d’échecs et
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <ImageProfil />
+            <div className="relative w-[400px] h-[440px] flex items-center justify-center">
+              <div className="absolute w-[502px] h-[502px] rounded-full spinning-border" />
+              <div className="absolute inset-0 bg-bgCustom/20 rounded-[38%] z-20 pointer-events-none" />
+              <ImageProfil className="rounded-[38%] w-full h-full object-cover z-10" />
+            </div>
           </motion.div>
         </div>
       </section>

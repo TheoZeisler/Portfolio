@@ -23,6 +23,8 @@ const child = {
 };
 
 export function SplitText({ text }) {
+  const words = text.split(" ");
+
   return (
     <motion.div
       className="text-lg text-textWhite text-justify"
@@ -31,13 +33,20 @@ export function SplitText({ text }) {
       initial="hidden"
       animate="show"
     >
-      {text.split("").map((char, index) => (
+      {words.map((word, wordIndex) => (
         <motion.span
-          key={index}
-          variants={child}
-          style={{ display: "inline-block", whiteSpace: "pre" }}
+          key={wordIndex}
+          style={{ display: "inline-flex", marginRight: "0.25em" }}
         >
-          {char}
+          {word.split("").map((char, charIndex) => (
+            <motion.span
+              key={charIndex}
+              variants={child}
+              style={{ display: "inline-block", whiteSpace: "pre" }}
+            >
+              {char}
+            </motion.span>
+          ))}
         </motion.span>
       ))}
     </motion.div>

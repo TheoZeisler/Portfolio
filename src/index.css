@@ -15,3 +15,35 @@ body {
   background-color: #2cd196;
   border-radius: 4px;
 }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinning-border {
+  background: conic-gradient(
+    from 0deg,
+    #2cd196 0deg,
+    transparent 30deg,
+    #2cd196 60deg,
+    transparent 90deg,
+    #2cd196 120deg,
+    transparent 150deg,
+    #2cd196 180deg,
+    transparent 210deg,
+    #2cd196 240deg,
+    transparent 270deg,
+    #2cd196 300deg,
+    transparent 330deg,
+    #2cd196 360deg
+  );
+  animation: spin 6s linear infinite;
+  z-index: 1;
+  mask-image: radial-gradient(circle, transparent 40%, black 41%);
+  -webkit-mask-image: radial-gradient(circle, transparent 65%, black 71%);
+}

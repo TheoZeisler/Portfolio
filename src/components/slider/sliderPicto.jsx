@@ -8,7 +8,7 @@ export function SliderPicto() {
   return (
     <div className="bg-bgCustom pb-5 pt-5">
       <Swiper
-        slidesPerView={3.9}
+        slidesPerView={3.3}
         spaceBetween={0}
         loop={true}
         centeredSlides={true}
@@ -18,6 +18,9 @@ export function SliderPicto() {
         }}
         modules={[Autoplay]}
         breakpoints={{
+          480: {
+            slidesPerView: 4.9,
+          },
           768: {
             slidesPerView: 5.9,
           },

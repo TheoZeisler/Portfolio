@@ -83,7 +83,7 @@ export default function Nav({ sectionsRef, headerRef }) {
 
   return (
     <div className="flex flex-col items-center w-full p-4">
-      <div className="flex overflow-x-auto scroll-smooth w-full p-4 sm:justify-center">
+      <div className="flex overflow-x-auto scroll-smooth w-full p-4 sm:justify-center justify-around">
         {nav.map((navItem) => (
           <button
             key={navItem.name}
