@@ -4,6 +4,7 @@ import "swiper/css/autoplay";
 import "swiper/css/free-mode";
 import { Autoplay } from "swiper/modules";
 import { Cards, icons } from "../card/cards";
+
 export function SliderPicto() {
   return (
     <div className="bg-bgCustom pb-5 pt-5">

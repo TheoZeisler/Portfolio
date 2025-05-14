@@ -1,29 +1,46 @@
-import { useState } from "react";
+import React, { useState, useCallback } from "react";
 
-export default function ContactForm() {
+export const ContactForm = React.memo(function ContactForm() {
   const [status, setStatus] = useState("idle");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     setStatus("loading");
 
-    const form = e.target;
-    const data = new FormData(form);
+    try {
+      const form = e.target;
+      const data = new FormData(form);
 
-    const res = await fetch("https://formspree.io/f/myzwyajq", {
-      method: "POST",
-      body: data,
-      headers: {
-        Accept: "application/json",
-      },
-    });
+      const res = await fetch("https://formspree.io/f/myzwyajq", {
+        method: "POST",
+        body: data,
+        headers: {
+          Accept: "application/json",
+        },
+      });
 
-    if (res.ok) {
-      setStatus("success");
-      form.reset();
-    } else {
+      if (res.ok) {
+        setStatus("success");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
       setStatus("error");
     }
+  }, []);
+
+  const statusMessages = {
+    success: (
+      <p className="text-emerald-400 font-medium text-center">
+        Message envoyé avec succès !
+      </p>
+    ),
+    error: (
+      <p className="text-red-500 font-medium text-center">
+        Une erreur est survenue. Réessaie.
+      </p>
+    ),
   };
 
   return (
@@ -38,20 +55,23 @@ export default function ContactForm() {
         name="name"
         placeholder="Nom"
         required
-        className="w-full p-4 rounded-lg bg-lightBg text-white placeholder-lightGreen border border-lightGreen focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+        disabled={status === "loading"}
+        className="w-full p-4 rounded-lg bg-lightBg text-white placeholder-lightGreen border border-lightGreen focus:ring-2 focus:ring-emerald-500 focus:outline-none disabled:opacity-50"
       />
       <input
         type="email"
         name="email"
         placeholder="E-mail"
         required
-        className="w-full p-4 rounded-lg bg-lightBg text-white placeholder-lightGreen border border-lightGreen focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+        disabled={status === "loading"}
+        className="w-full p-4 rounded-lg bg-lightBg text-white placeholder-lightGreen border border-lightGreen focus:ring-2 focus:ring-emerald-500 focus:outline-none disabled:opacity-50"
       />
       <textarea
         name="message"
         placeholder="Votre message"
         required
-        className="w-full p-4 rounded-lg bg-lightBg text-white placeholder-lightGreen border border-lightGreen focus:ring-2 focus:ring-emerald-500 focus:outline-none h-32"
+        disabled={status === "loading"}
+        className="w-full p-4 rounded-lg bg-lightBg text-white placeholder-lightGreen border border-lightGreen focus:ring-2 focus:ring-emerald-500 focus:outline-none h-32 disabled:opacity-50"
       />
 
       <button
@@ -62,16 +82,7 @@ export default function ContactForm() {
         {status === "loading" ? "Envoi..." : "Envoyer"}
       </button>
 
-      {status === "success" && (
-        <p className="text-emerald-400 font-medium text-center">
-          Message envoyé avec succès !
-        </p>
-      )}
-      {status === "error" && (
-        <p className="text-red-500 font-medium text-center">
-          Une erreur est survenue. Réessaie.
-        </p>
-      )}
+      {statusMessages[status]}
     </form>
   );
-}
+});

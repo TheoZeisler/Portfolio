@@ -5,7 +5,7 @@ export function DownloadButton({ text }) {
     <a
       href="cv-theo-zeisler-developpeur.pdf"
       download
-      className="text-light text-lightGreen uppercase w-fit text-sizeText flex gap-2 px-6 py-3 border-2 border-lightGreen rounded-full text-lg font-medium hover:bg-lightGreen hover:text-bgCustom transition"
+      className="text-lightGreen uppercase w-fit flex gap-2 px-3 sm:px-6 py-4 border-2 border-lightGreen rounded-full text-base sm:text-lg font-medium hover:bg-lightGreen hover:text-bgCustom transition items-center"
     >
       <span>{text}</span>
       <Download className="w-6 h-6" />

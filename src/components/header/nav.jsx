@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 export const nav = [
   { label: "Profil", name: "profil" },
@@ -11,75 +11,89 @@ export default function Nav({ sectionsRef, headerRef }) {
   const isManualScroll = useRef(false);
   const observerRef = useRef(null);
   const buttonRefs = useRef({});
+  const timeoutRef = useRef(null);
 
-  useEffect(() => {
-    const createObserver = () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
+  const createObserver = useCallback(() => {
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
 
-      const options = {
-        root: null,
-        rootMargin: `-${headerRef?.current?.offsetHeight || 0}px 0px 0px 0px`,
-        threshold: 0.6,
-      };
+    const options = {
+      root: null,
+      rootMargin: `-${headerRef?.current?.offsetHeight || 0}px 0px 0px 0px`,
+      threshold: 0.6,
+    };
 
-      observerRef.current = new IntersectionObserver((entries) => {
-        if (isManualScroll.current) return;
+    observerRef.current = new IntersectionObserver((entries) => {
+      if (isManualScroll.current) return;
 
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const sectionId = Object.entries(sectionsRef.current).find(
-              ([, el]) => el === entry.target
-            )?.[0];
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const sectionId = Object.entries(sectionsRef.current).find(
+            ([, el]) => el === entry.target
+          )?.[0];
 
-            if (sectionId) {
-              setActiveSection(sectionId);
+          if (sectionId) {
+            setActiveSection(sectionId);
+            requestAnimationFrame(() => {
               buttonRefs.current[sectionId]?.scrollIntoView({
                 behavior: "smooth",
                 inline: "center",
                 block: "nearest",
               });
-            }
+            });
           }
-        });
-      }, options);
-
-      Object.values(sectionsRef.current).forEach((section) => {
-        if (section) observerRef.current.observe(section);
+        }
       });
-    };
+    }, options);
 
+    Object.values(sectionsRef.current).forEach((section) => {
+      if (section) observerRef.current.observe(section);
+    });
+  }, [headerRef, sectionsRef]);
+
+  useEffect(() => {
     createObserver();
-    return () => observerRef.current?.disconnect();
-  }, [sectionsRef, headerRef]);
+    return () => {
+      observerRef.current?.disconnect();
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [createObserver]);
 
-  const scrollToSection = (name) => {
-    const section = sectionsRef.current[name];
-    const headerHeight = headerRef?.current?.offsetHeight || 0;
+  const scrollToSection = useCallback(
+    (name) => {
+      const section = sectionsRef.current[name];
+      const headerHeight = headerRef?.current?.offsetHeight || 0;
 
-    if (section) {
-      isManualScroll.current = true;
-      setActiveSection(name);
-      buttonRefs.current[name]?.scrollIntoView({
-        behavior: "smooth",
-        inline: "center",
-        block: "nearest",
-      });
+      if (section) {
+        isManualScroll.current = true;
+        setActiveSection(name);
 
-      const y =
-        section.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+        requestAnimationFrame(() => {
+          buttonRefs.current[name]?.scrollIntoView({
+            behavior: "smooth",
+            inline: "center",
+            block: "nearest",
+          });
 
-      window.scrollTo({
-        top: y,
-        behavior: "smooth",
-      });
+          const y =
+            section.getBoundingClientRect().top +
+            window.pageYOffset -
+            headerHeight;
 
-      setTimeout(() => {
-        isManualScroll.current = false;
-      }, 400);
-    }
-  };
+          window.scrollTo({
+            top: y,
+            behavior: "smooth",
+          });
+        });
+
+        timeoutRef.current = setTimeout(() => {
+          isManualScroll.current = false;
+        }, 400);
+      }
+    },
+    [sectionsRef, headerRef]
+  );
 
   return (
     <div className="flex flex-col items-center w-full p-4">

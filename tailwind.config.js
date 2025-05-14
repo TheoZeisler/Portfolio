@@ -14,7 +14,6 @@ export default {
         lightBg: "#233849",
       },
       fontSize: {
-        sizeText: "18px",
         sizeButton: "24px",
         sizeTitre: "48px",
         sizeTitreMobile: "32px",
