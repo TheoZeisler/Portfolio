@@ -53,7 +53,7 @@ function App() {
             <DownloadButton text="Télecharger mon CV"></DownloadButton>
             <div className="flex gap-4">
               <a
-                href="https://www.linkedin.com/in/th%C3%A9o-zeisler/"
+                href="https://www.linkedin.com/in/theo-zeisler/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-lightGreen hover:text-white text-4xl transition-colors duration-300"
