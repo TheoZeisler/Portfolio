@@ -106,7 +106,7 @@ const content = {
     </section>
   ),
   apropos: (
-    <section className="bg-bgCustom text-textWhite px-6 py-12 md:px-16 md:pt-0">
+    <section className="bg-bgCustom text-textWhite px-6 py-12 md:px-16 md:pt-0 text-justify">
       <div className="max-w-4xl mx-auto">
         <p className="text-base md:text-lg leading-relaxed mb-4">
           Je m'appelle{" "}
