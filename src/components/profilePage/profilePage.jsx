@@ -3,10 +3,10 @@ import { useState } from "react";
 import { Cards, icons } from "../card/cards";
 
 const tabs = [
+  { id: "apropos", label: "A propos" },
   { id: "experiences", label: "Experiences" },
   { id: "competences", label: "Compétences" },
   { id: "formations", label: "Formations" },
-  { id: "apropos", label: "A propos" },
 ];
 
 const formations = [
@@ -68,7 +68,7 @@ const content = {
     </section>
   ),
   experiences: (
-    <section className="lg:grid lg:grid-cols-2 gap-4 max-lg:space-y-4">
+    <section className="lg:grid lg:grid-cols-1 gap-4 max-lg:space-y-4">
       {experiences.map((experience, i) => (
         <div
           key={i}
@@ -137,7 +137,7 @@ const content = {
 };
 
 export default function ProfilePage() {
-  const [activeTab, setActiveTab] = useState("experiences");
+  const [activeTab, setActiveTab] = useState("apropos");
 
   return (
     <div className="mt-6">
