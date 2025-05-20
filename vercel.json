@@ -1,0 +1,26 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "theo-zeisler.fr"
+        }
+      ],
+      "destination": "https://www.theo-zeisler.fr/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "theo-zeisler.com"
+        }
+      ],
+      "destination": "https://www.theo-zeisler.com/$1",
+      "permanent": true
+    }
+  ]
+}
